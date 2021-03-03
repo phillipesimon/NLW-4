@@ -1,16 +1,15 @@
+// - Server é responsavel por gerenciar os serviços
 import 'reflect-metadata';
 
 import express from 'express';
 import './database';
+import { router } from './routes';
 
 const app = express();
 
-app.get('/', (request, response) => {
-  return response.json({ message: 'Teste Rota GET' });
-});
+// Informa o server que vamos utilizar o formato json
+app.use(express.json());
 
-app.post('/', (request, response) => {
-  return response.json({ message: 'Os dados foram salvos com sucesso!' });
-});
+app.use(router);
 
 app.listen(3333, () => console.log('Server is running'));
