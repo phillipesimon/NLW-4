@@ -1,14 +1,14 @@
-// - Onde se localizam as regra de negócio
-import { json, Request, Response } from 'express';
-import { getRepository } from 'typeorm';
-import { User } from '../models/User';
+// Regras de negócio do User - É importado nas Rotas
+
+import { Request, Response } from 'express';
+import { getCustomRepository } from 'typeorm';
+import { UsersRepository } from '../repositories/UsersRepository';
 
 class UserController {
   async create(request: Request, response: Response) {
     const { name, email } = request.body;
 
-    //Repository é do typeorm e vai gerenciar a conexao com o banco de dados
-    const usersRepository = getRepository(User);
+    const usersRepository = getCustomRepository(UsersRepository);
 
     const userAlreadyExistis = await usersRepository.findOne({
       email,
